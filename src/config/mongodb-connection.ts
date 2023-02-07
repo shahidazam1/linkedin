@@ -6,7 +6,7 @@ const mongoConfig = () => {
   const AUTH = `${username}:${password}`;
   const DB = `${DB_HOST}/${DB_NAME}`;
   const MONGO_URI = `mongodb+srv://${AUTH}@${DB}?retryWrites=true&w=majority`;
-
+  //url
   return {
     MONGO_URI,
   };
