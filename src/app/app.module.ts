@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ScheduleModule } from '@nestjs/schedule';
 import { AuthModule } from 'src/modules/auth/auth.module';
 import { DomainModule } from 'src/modules/domain/domain.module';
+import { ProfileModule } from 'src/modules/profile/profile.module';
 import mongoConfig from '../config/mongodb-connection';
 
 ConfigModule.forRoot({ isGlobal: true });
@@ -14,6 +15,7 @@ ConfigModule.forRoot({ isGlobal: true });
     ScheduleModule.forRoot(),
     DomainModule,
     AuthModule,
+    ProfileModule,
   ],
 })
 export class AppModule {}

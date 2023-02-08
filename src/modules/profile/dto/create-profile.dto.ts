@@ -16,8 +16,4 @@ export class CreateProfileDto {
   @IsNotEmpty()
   @IsString()
   city: string;
-
-  @IsNotEmpty()
-  @IsString()
-  userId: string;
 }
