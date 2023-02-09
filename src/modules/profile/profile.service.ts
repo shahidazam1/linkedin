@@ -32,7 +32,7 @@ export class ProfileService {
     return profileDetails;
   }
 
-  async findAll(id: any) {
+  async findAll() {
     const profiles = await this.profileModel.find({});
 
     return profiles;

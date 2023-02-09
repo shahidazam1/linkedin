@@ -8,14 +8,18 @@ import {
   Delete,
   UseGuards,
   Req,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard';
 import { Request } from 'express';
+import { diskStorage } from 'multer';
+import { FileInterceptor } from '@nestjs/platform-express';
 
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @Controller('profile')
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
@@ -25,9 +29,30 @@ export class ProfileController {
     return this.profileService.create(createProfileDto, req.user.id);
   }
 
+  // @Post('upload')
+  // @UseInterceptors(FileInterceptor('file'))
+  // uploadFile(@UploadedFile() file: Express.Multer.File) {
+  //   console.log(file);
+  // }
+
+  @Post('upload')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads',
+      }),
+    }),
+  )
+  uploadMultipleFiles(@UploadedFile() file) {
+    // const fileReponse = {
+    //   filename: file.filename,
+    // };
+    return file;
+  }
+
   @Get()
-  findAll(@Req() req: any) {
-    return this.profileService.findAll(req.user.id);
+  findAll() {
+    return this.profileService.findAll();
   }
 
   @Get('my-profile')
